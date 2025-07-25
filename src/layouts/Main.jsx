@@ -7,6 +7,8 @@ import FloatingMenu from "./FloatingMenu";
 import ScrollAutoTop from "../utils/ScrollAutoTop";
 import up from "../assets/up.svg";
 
+const JWT_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJcXJhIEFwcCIsImlhdCI6MTc0NzY4NDg2NiwiZXhwIjozMzMwNTYyNjcwNSwiYXVkIjoiaHR0cHM6Ly9pcXJhLWJhY2tlbmQtZ2l0LW1hc3Rlci1pZnRpa2hhcnJhc2hhcy1wcm9qZWN0cy52ZXJjZWwuYXBwIiwic3ViIjoiNjRhMWE2NDU0NTYxNTRlZWRjMTJhNTA1IiwibmFtZSI6IklmdGlraGFyIFJhc2hhIiwiZW1haWwiOiJpZnRpa2hhcnJhc2hhQGdtYWlsLmNvbSIsInR5cCI6ImRldmVsb3BlciJ9.MFBm-DkslbE7BEDDYJx2jMD_NMf5BqIPwAGWwCfg2vU';
+
 const Main = () => {
     const [session, setSession] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -23,7 +25,11 @@ const Main = () => {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await axios.get('https://iqra-backend-git-master-iftikharrashas-projects.vercel.app/api/iqra/book/surah'); 
+              const response = await axios.get('https://iqra-backend-git-master-iftikharrashas-projects.vercel.app/api/iqra/book/surah', {
+                headers: {
+                    Authorization: " Bearer " + JWT_TOKEN,
+                }
+            }); 
               setData(response.data.data);
               setLoading(response.data.success);
           } catch (error) {
